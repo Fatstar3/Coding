@@ -1,0 +1,52 @@
+class Solution {
+    public int countPrimes(int n) {
+        int i = 11; // I make i equal to 11, because 10 is a composite number.
+        int count = 0;
+        boolean add2 = true;
+        boolean perPrime = true;
+        ArrayList<Integer> primes = new ArrayList<>();
+        primes.add(3);
+        primes.add(5);
+        primes.add(7);
+        if(n <= 2){
+            return 0;
+        }
+        if(n > 7 && n <= 11){
+            return 4;
+        }
+        if(n > 5 && n <= 7){
+            return 3;
+        }
+        if(n > 3 && n <= 5 ){
+            return 2;
+        }
+        if(n > 2 && n <= 3){
+            return 1;
+        }
+        while(i < n){
+            for(int j = 0; j < primes.size(); j++){
+                if(i % primes.get(j) == 0){
+                    perPrime = false;
+                    break;
+                }
+            }
+            if(perPrime == true){
+                primes.add(i);
+            }
+            perPrime = true;
+            if(add2 == true && (count == 3 || i == 13)){
+                add2 = false;
+                count = 0;
+            }
+            else if(add2 == true){
+                i+=2;
+                count++;
+            }
+            else if(add2 == false){
+                i += 4;
+                add2 = true;
+            }
+        }
+        return primes.size()+1;
+    }
+}
